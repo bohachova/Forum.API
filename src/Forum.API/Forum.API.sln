@@ -3,7 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.7.34024.191
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Forum.API", "Forum.API\Forum.API.csproj", "{2AB7BA0A-F365-4E95-9CBF-C9BAED647CBD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Forum.API", "Forum.API\Forum.API.csproj", "{2AB7BA0A-F365-4E95-9CBF-C9BAED647CBD}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Forum.API.BL", "Forum.API.BL\Forum.API.BL.csproj", "{0AA9E394-2300-4C7C-B0B4-91434756D825}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Forum.API.BL.Abstracts", "Forum.API.BL.Abstracts\Forum.API.BL.Abstracts.csproj", "{F14EEFAD-A160-48B5-B986-958FF07ED07A}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Forum.API.DAL", "Forum.API.DAL\Forum.API.DAL.csproj", "{75632E8D-452F-4C9D-A459-3D0E351265AA}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Forum.API.DataObjects", "Forum.API.DataObjects\Forum.API.DataObjects.csproj", "{0667174D-EB20-4C1D-B891-2CD2035C29EF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +23,22 @@ Global
 		{2AB7BA0A-F365-4E95-9CBF-C9BAED647CBD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2AB7BA0A-F365-4E95-9CBF-C9BAED647CBD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2AB7BA0A-F365-4E95-9CBF-C9BAED647CBD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0AA9E394-2300-4C7C-B0B4-91434756D825}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0AA9E394-2300-4C7C-B0B4-91434756D825}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0AA9E394-2300-4C7C-B0B4-91434756D825}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0AA9E394-2300-4C7C-B0B4-91434756D825}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F14EEFAD-A160-48B5-B986-958FF07ED07A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F14EEFAD-A160-48B5-B986-958FF07ED07A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F14EEFAD-A160-48B5-B986-958FF07ED07A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F14EEFAD-A160-48B5-B986-958FF07ED07A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{75632E8D-452F-4C9D-A459-3D0E351265AA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{75632E8D-452F-4C9D-A459-3D0E351265AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{75632E8D-452F-4C9D-A459-3D0E351265AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{75632E8D-452F-4C9D-A459-3D0E351265AA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0667174D-EB20-4C1D-B891-2CD2035C29EF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0667174D-EB20-4C1D-B891-2CD2035C29EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0667174D-EB20-4C1D-B891-2CD2035C29EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0667174D-EB20-4C1D-B891-2CD2035C29EF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,9 +1,10 @@
 using Forum.API.BL.Handlers;
 using Forum.API.DAL;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Authentication.OAuth;
 using Microsoft.IdentityModel.Tokens;
 using Forum.API.BL.Security;
+using Forum.API.BL.Abstracts;
+using Forum.API.BL.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -26,6 +27,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             ValidateIssuerSigningKey = true,
         };
     });
+builder.Services.AddScoped<IPasswordHasher, PasswordHasher>();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -47,3 +49,4 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+

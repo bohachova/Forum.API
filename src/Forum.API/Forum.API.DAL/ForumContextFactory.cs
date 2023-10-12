@@ -7,7 +7,7 @@ namespace Forum.API.DAL
     public class ForumContextFactory : IDesignTimeDbContextFactory<ForumDbContext>
     {
         private readonly IConfiguration configuration;
-        public ForumContextFactory() {}
+        public ForumContextFactory() { }
         public ForumContextFactory(IConfiguration configuration)
         {
             this.configuration = configuration;
@@ -15,7 +15,7 @@ namespace Forum.API.DAL
         public ForumDbContext CreateDbContext(string[] args)
         {
             var builder = new DbContextOptionsBuilder<ForumDbContext>();
-            builder.UseSqlServer(configuration.GetConnectionString("main"));
+            builder.UseSqlServer("Server=.;Database=forumApiDb;Trusted_Connection=True;Integrated Security=true;TrustServerCertificate=True");
             return new ForumDbContext(builder.Options);
         }
     }

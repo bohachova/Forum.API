@@ -17,7 +17,7 @@ namespace Forum.API.DataObjects.UserObjects
         public string Password { get; set; } = string.Empty;
         public UserRole UserRole { get; set; } = UserRole.User;
         public DateTime RegistrationDate { get; set; } = DateTime.Today;
-        public string UserPhoto { get; set; } = string.Empty;
+        public string? UserPhoto { get; set; }
         public bool PasswordSetRequired { get; set; } = false;
     }
 }

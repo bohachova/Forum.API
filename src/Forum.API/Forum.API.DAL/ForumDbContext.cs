@@ -8,7 +8,6 @@ namespace Forum.API.DAL
         public DbSet<User> Users { get; set; }
         public ForumDbContext(DbContextOptions<ForumDbContext> options) : base(options)
         {
-            Database.EnsureCreated();
         }
     }
 }

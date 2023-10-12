@@ -11,22 +11,25 @@ namespace Forum.API.BL.Handlers
     {
         private readonly ForumDbContext dbContext;
         private readonly IPasswordHasher passwordHasher;
-        public AuthorizationHandler(ForumDbContext dbContext, IPasswordHasher passwordHasher)
+        private readonly IMediator mediator;
+        public AuthorizationHandler(ForumDbContext dbContext, IPasswordHasher passwordHasher, IMediator mediator)
         {
             this.dbContext = dbContext;
             this.passwordHasher = passwordHasher;
+            this.mediator = mediator;
         }
-        public Task<AuthResponse> Handle(AuthorizationQuery request, CancellationToken cancellationToken)
+        public async Task<AuthResponse> Handle(AuthorizationQuery request, CancellationToken cancellationToken)
         {
-            var user = dbContext.Users.FirstOrDefault(x=>x.Email == request.Email);
+            var query = new FindUserQuery { Email = request.Email};
+            var user = await mediator.Send(query);
             if (user != null && passwordHasher.VerifyPassword(user.Password, request.Password))
             {
                 var token = JWTSecurityTokenGenerator.GetToken(user.Username, user.UserRole);
-                return Task.FromResult(new AuthResponse { IsSuccess = true, Message = "Authorized", JWTToken = token});
+                return new AuthResponse { IsSuccess = true, Message = "Authorized", JWTToken = token};
             }
             else
             {
-                return Task.FromResult(new AuthResponse { IsSuccess = false, Message = "Authorization Failed"});
+                return new AuthResponse { IsSuccess = false, Message = "Authorization Failed"};
             }
         }
     }

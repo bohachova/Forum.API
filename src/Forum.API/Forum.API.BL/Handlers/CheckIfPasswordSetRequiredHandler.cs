@@ -8,17 +8,20 @@ namespace Forum.API.BL.Handlers
     public class CheckIfPasswordSetRequiredHandler : IRequestHandler<CheckIfPasswordSetRequiredQuery, bool>
     {
         private readonly ForumDbContext dbContext;
-        public CheckIfPasswordSetRequiredHandler(ForumDbContext dbContext)
+        private readonly IMediator mediator;
+        public CheckIfPasswordSetRequiredHandler(ForumDbContext dbContext, IMediator mediator)
         {
-             this.dbContext = dbContext;
+            this.dbContext = dbContext;
+            this.mediator = mediator;
         }
-        public Task<bool> Handle(CheckIfPasswordSetRequiredQuery request, CancellationToken cancellationToken)
+        public async Task<bool> Handle(CheckIfPasswordSetRequiredQuery request, CancellationToken cancellationToken)
         {
-            var user = dbContext.Users.FirstOrDefault(x=>x.Email == request.Email);
+            var query = new FindUserQuery { Email = request.Email };
+            var user = await mediator.Send(query);
             if (user != null && user.UserRole == UserRole.Admin && user.PasswordSetRequired == true)
-                return Task.FromResult(true);
+                return true;
             else
-                return Task.FromResult(false);
+                return false;
         }
     }
 }

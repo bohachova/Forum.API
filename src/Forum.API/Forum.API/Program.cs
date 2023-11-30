@@ -5,6 +5,9 @@ using Microsoft.IdentityModel.Tokens;
 using Forum.API.BL.Security;
 using Forum.API.BL.Abstracts;
 using Forum.API.BL.Services;
+using Forum.API.BL.Configuration;
+using Forum.API.BL.Configuration.Interfaces;
+using Microsoft.Extensions.Options;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,6 +15,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(AuthorizationHandler).Assembly));
+builder.Services.Configure<FileValidationConfiguration>(builder.Configuration.GetSection("FileUploadSettings"));
+builder.Services.AddScoped<IFileValidationConfiguration>(x => x.GetRequiredService<IOptions<FileValidationConfiguration>>().Value);
 builder.Services.AddForumApiDbContext(builder.Configuration);
 builder.Services.AddAuthorization();
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)

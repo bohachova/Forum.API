@@ -8,9 +8,13 @@ namespace Forum.API.BL.Security
 {
     public static class JWTSecurityTokenGenerator
     {
-        public static string GetToken(string username, UserRole userRole)
+        public static string GetToken(int id, string username, UserRole userRole)
         {
-            var claims = new List<Claim> { new Claim(ClaimTypes.Name, username), new Claim(ClaimTypes.Role, userRole.ToString()) };
+            var claims = new List<Claim> {
+                new Claim(ClaimTypes.Name, username),
+                new Claim(ClaimTypes.Role, userRole.ToString()),
+                new Claim("UserId",id.ToString())
+            };
             var jwt = new JwtSecurityToken(
             issuer: JWTAuthOptions.ISSUER,
                     claims: claims,

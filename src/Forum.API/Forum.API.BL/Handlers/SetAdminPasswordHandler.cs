@@ -29,7 +29,7 @@ namespace Forum.API.BL.Handlers
             admin!.Password = passwordHash;
             admin!.PasswordSetRequired = false;
             await dbContext.SaveChangesAsync();
-            var token = JWTSecurityTokenGenerator.GetToken(admin.Username, UserRole.Admin);
+            var token = JWTSecurityTokenGenerator.GetToken(admin.Id, admin.Username, UserRole.Admin);
             return new AuthResponse { IsSuccess = true, Message = "Authorized", JWTToken = token};
         }
     }

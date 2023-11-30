@@ -15,6 +15,11 @@ namespace Forum.API.BL.Handlers
         }
         public async Task<User?> Handle(FindUserQuery request, CancellationToken cancellationToken)
         {
+            if(request.Id > 0)
+            {
+                var user = await dbContext.Users.FirstOrDefaultAsync(x=>x.Id == request.Id);
+                return user;
+            }
             if (!string.IsNullOrEmpty(request.Email) && !string.IsNullOrEmpty(request.Username))
             {
                 var user = await dbContext.Users.FirstOrDefaultAsync(x => x.Username.ToLower() == request.Username.ToLower() || x.Email.ToLower() == request.Email.ToLower());

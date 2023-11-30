@@ -7,11 +7,9 @@ namespace Forum.API.BL.Handlers
 {
     public class CheckIfPasswordSetRequiredHandler : IRequestHandler<CheckIfPasswordSetRequiredQuery, bool>
     {
-        private readonly ForumDbContext dbContext;
         private readonly IMediator mediator;
-        public CheckIfPasswordSetRequiredHandler(ForumDbContext dbContext, IMediator mediator)
+        public CheckIfPasswordSetRequiredHandler(IMediator mediator)
         {
-            this.dbContext = dbContext;
             this.mediator = mediator;
         }
         public async Task<bool> Handle(CheckIfPasswordSetRequiredQuery request, CancellationToken cancellationToken)

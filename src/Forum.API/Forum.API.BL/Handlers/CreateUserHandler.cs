@@ -33,14 +33,15 @@ namespace Forum.API.BL.Handlers
             else
             {
                 var password = passwordHasher.HashPassword(request.Password);
-                await dbContext.Users.AddAsync(new User
+                var newUser = new User
                 {
                     Username = request.Username,
                     Email = request.Email,
                     Password = password
-                });
+                };
+                await dbContext.Users.AddAsync(newUser);
                 await dbContext.SaveChangesAsync();
-                var token = JWTSecurityTokenGenerator.GetToken(request.Username, UserRole.User);
+                var token = JWTSecurityTokenGenerator.GetToken(newUser.Id, request.Username, UserRole.User);
                 var result = new AuthResponse { IsSuccess = true, Message = "Registered", JWTToken = token };
                 return result;
             }

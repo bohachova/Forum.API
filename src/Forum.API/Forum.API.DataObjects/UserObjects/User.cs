@@ -12,12 +12,16 @@ namespace Forum.API.DataObjects.UserObjects
         [Required]
         [EmailAddress]
         public string Email { get; set; } = string.Empty;
-        [Required]
-        [StringLength(30, MinimumLength = 8)]
         public string Password { get; set; } = string.Empty;
         public UserRole UserRole { get; set; } = UserRole.User;
         public DateTime RegistrationDate { get; set; } = DateTime.Today;
         public string? UserPhoto { get; set; }
         public bool PasswordSetRequired { get; set; } = false;
+        public string? FirstName { get; set; }
+        public string? LastName { get; set; }
+        public string? Country { get; set; }
+        public string? City { get; set; }
+        public DateTime? DateOfBirth { get; set; } 
+        public string? About { get; set; }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using Forum.API.DataObjects.Enums;
+using Forum.API.DataObjects.TopicObjects;
 
 namespace Forum.API.DataObjects.UserObjects
 {
@@ -23,5 +24,7 @@ namespace Forum.API.DataObjects.UserObjects
         public string? City { get; set; }
         public DateTime? DateOfBirth { get; set; } 
         public string? About { get; set; }
+        public List<Topic> CreatedTopics { get; set; } = new List<Topic>();
+        public List<Post> Posts { get; set; } = new List<Post>();
     }
 }

@@ -6,6 +6,6 @@ namespace Forum.API.BL.Commands
     public class CreateTopicCommand: IRequest<Response>
     {
         public string Name { get; set; } = string.Empty;
-        public int AuthorId { get; set; }
+        public int? AuthorId { get; set; }
     }
 }

@@ -5,7 +5,6 @@ using Forum.API.DataObjects.Responses;
 using Forum.API.DataObjects.TopicObjects;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Forum.API.Controllers
@@ -27,8 +26,8 @@ namespace Forum.API.Controllers
             return Ok(result);
         }
         [Authorize]
-        [HttpPost("Posts")]
-        public async Task<IActionResult> GetPosts([FromBody] PaginationSettings settings, int topicId)
+        [HttpPost("Posts/{topicId}")]
+        public async Task<IActionResult> GetPosts([FromRoute]int topicId, [FromBody] PaginationSettings settings)
         {
             var query = new GetTopicPostsQuery { PageIndex = settings.PageNumber, PageSize = settings.PageSize, TopicId = topicId };
             var result = await mediator.Send(query);
@@ -40,7 +39,7 @@ namespace Forum.API.Controllers
         {
             if (ModelState.IsValid)
             {
-                var command = new CreateTopicCommand { Name = topic.Name, AuthorId = topic.AuthorId };
+                var command = new CreateTopicCommand { Name = topic.Title, AuthorId = topic.AuthorId };
                 var result = await mediator.Send(command);
                 return Ok(result);
             }

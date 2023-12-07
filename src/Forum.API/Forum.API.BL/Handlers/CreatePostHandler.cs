@@ -22,13 +22,13 @@ namespace Forum.API.BL.Handlers
             var post = new Post { Header = request.Header, Text = request.Text, AuthorId = request.AuthorId, TopicId = request.TopicId };
             if (request.Attachments.Any())
             {
-                var attachments = new List<string>();
+                var attachments = new List<Attachment>();
                 foreach (var file in request.Attachments) 
                 {
                     if(data.Extensions.Any(x=> x == Path.GetExtension(file.FileName) && file.Length < data.MaxSize))
                     {
                         var img = ImageConverter.ConvertImage(file);
-                        attachments.Add(img);
+                        attachments.Add(new Attachment { File = img});
                     }
                     else
                     {

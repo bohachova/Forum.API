@@ -15,7 +15,7 @@ namespace Forum.API.BL.Handlers
         }
         public async Task<Response> Handle(CreateTopicCommand request, CancellationToken cancellationToken)
         {
-            var topic = new Topic { Name = request.Name, AuthorId = request.AuthorId };
+            var topic = new Topic { Title = request.Name, AuthorId = request.AuthorId };
             await dbContext.Topics.AddAsync(topic);
             await dbContext.SaveChangesAsync();
             return new Response { IsSuccess = true };

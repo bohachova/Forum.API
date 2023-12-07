@@ -9,10 +9,9 @@ namespace Forum.API.DataObjects.TopicObjects
         public int Id { get; set; }
         [Required]
         [StringLength(100)]
-        public string Name { get; set; } = string.Empty;
+        public string Title { get; set; } = string.Empty;
         public List<Post> Posts { get; set; } = new List<Post>();
-        [Required]
-        public int AuthorId { get; set; }
-        public User Author { get; set; }
+        public int? AuthorId { get; set; }
+        public User? Author { get; set; }
     }
 }

@@ -20,6 +20,7 @@ namespace Forum.API.BL.Handlers
             var posts = await dbContext.Posts.AsNoTracking().Where(x=> x.TopicId == request.TopicId)
                                                             .Skip((request.PageIndex - 1) * request.PageSize)
                                                             .Take(request.PageSize)
+                                                            .Include(x=>x.Attachments)
                                                             .ToListAsync();
             return new PaginatedList<Post>(posts, postsCount, request.PageIndex, request.PageSize);
         }

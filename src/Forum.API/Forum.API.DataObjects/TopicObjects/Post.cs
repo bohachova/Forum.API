@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using Forum.API.DataObjects.UserObjects;
 
 namespace Forum.API.DataObjects.TopicObjects
@@ -13,7 +12,7 @@ namespace Forum.API.DataObjects.TopicObjects
         [Required]
         [StringLength(1000)]
         public string Text { get; set; } = string.Empty;
-        public List<string> Attachments { get; set; } = new List<string>();
+        public List<Attachment> Attachments { get; set; } = new List<Attachment>();
         public DateTime PostPublishingTime { get; set; } = DateTime.Now;
         [Required]
         public int AuthorId { get; set; }

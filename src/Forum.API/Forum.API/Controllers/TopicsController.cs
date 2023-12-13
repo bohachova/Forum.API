@@ -50,7 +50,7 @@ namespace Forum.API.Controllers
         }
         [Authorize]
         [HttpPost("NewPost")]
-        public async Task<IActionResult> CreatePost([FromBody] PostCreationModel model)
+        public async Task<IActionResult> CreatePost([FromForm] PostCreationModel model)
         {
             if (ModelState.IsValid)
             {

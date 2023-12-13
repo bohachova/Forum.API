@@ -21,6 +21,7 @@ namespace Forum.API.BL.Handlers
                                                             .Skip((request.PageIndex - 1) * request.PageSize)
                                                             .Take(request.PageSize)
                                                             .Include(x=>x.Attachments)
+                                                            .Include(x=> x.Author)
                                                             .ToListAsync();
             return new PaginatedList<Post>(posts, postsCount, request.PageIndex, request.PageSize);
         }

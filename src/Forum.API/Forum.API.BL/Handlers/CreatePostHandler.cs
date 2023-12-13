@@ -22,7 +22,7 @@ namespace Forum.API.BL.Handlers
             var post = new Post { Header = request.Header, Text = request.Text, AuthorId = request.AuthorId, TopicId = request.TopicId };
             if (request.Attachments.Any())
             {
-                var attachments = new List<Attachment>();
+                var attachments = new List<Attachment>(5);
                 foreach (var file in request.Attachments) 
                 {
                     if(data.Extensions.Any(x=> x == Path.GetExtension(file.FileName) && file.Length < data.MaxSize))

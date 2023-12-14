@@ -1,5 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 using Forum.API.DataObjects.Enums;
+using Forum.API.DataObjects.TopicObjects;
 
 namespace Forum.API.DataObjects.UserObjects
 {
@@ -12,6 +14,7 @@ namespace Forum.API.DataObjects.UserObjects
         [Required]
         [EmailAddress]
         public string Email { get; set; } = string.Empty;
+        [JsonIgnore]
         public string Password { get; set; } = string.Empty;
         public UserRole UserRole { get; set; } = UserRole.User;
         public DateTime RegistrationDate { get; set; } = DateTime.Today;
@@ -23,5 +26,10 @@ namespace Forum.API.DataObjects.UserObjects
         public string? City { get; set; }
         public DateTime? DateOfBirth { get; set; } 
         public string? About { get; set; }
+
+        [JsonIgnore]
+        public List<Topic> CreatedTopics { get; set; } = new List<Topic>();
+        [JsonIgnore]
+        public List<Post> Posts { get; set; } = new List<Post>();
     }
 }

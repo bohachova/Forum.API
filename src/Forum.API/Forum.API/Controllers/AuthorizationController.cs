@@ -3,8 +3,6 @@ using Microsoft.AspNetCore.Mvc;
 using Forum.API.DataObjects.UserObjects;
 using Forum.API.BL.Queries;
 using Forum.API.DataObjects.Responses;
-using Forum.API.DataObjects.Enums;
-using Microsoft.AspNetCore.Mvc.Diagnostics;
 using Forum.API.BL.Commands;
 
 namespace Forum.API.Controllers

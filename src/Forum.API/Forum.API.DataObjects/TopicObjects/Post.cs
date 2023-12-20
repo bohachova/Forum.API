@@ -20,5 +20,6 @@ namespace Forum.API.DataObjects.TopicObjects
         [Required]
         public int TopicId { get; set; }
         public Topic Topic { get; set; }
+        public List<Comment> Comments { get; set; } = new List<Comment>();
     }
 }

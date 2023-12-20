@@ -31,5 +31,7 @@ namespace Forum.API.DataObjects.UserObjects
         public List<Topic> CreatedTopics { get; set; } = new List<Topic>();
         [JsonIgnore]
         public List<Post> Posts { get; set; } = new List<Post>();
+        [JsonIgnore]
+        public List<Comment> Comments { get; set; } = new List<Comment>();
     }
 }

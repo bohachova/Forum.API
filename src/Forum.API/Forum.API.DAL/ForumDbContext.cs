@@ -9,6 +9,7 @@ namespace Forum.API.DAL
         public DbSet<User> Users { get; set; }
         public DbSet<Topic> Topics { get; set; }
         public DbSet<Post> Posts { get; set; }
+        public DbSet<Comment> Comments { get; set; }
         public ForumDbContext(DbContextOptions<ForumDbContext> options) : base(options)
         {
         }

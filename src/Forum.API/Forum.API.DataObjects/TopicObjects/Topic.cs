@@ -1,6 +1,5 @@
 ﻿using Forum.API.DataObjects.UserObjects;
 using System.ComponentModel.DataAnnotations;
-using Forum.API.DataObjects.Pagination;
 using System.Text.Json.Serialization;
 
 namespace Forum.API.DataObjects.TopicObjects

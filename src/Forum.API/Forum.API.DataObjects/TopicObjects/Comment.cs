@@ -8,7 +8,7 @@ namespace Forum.API.DataObjects.TopicObjects
         public int Id { get; set; }
         public int PostId { get; set; }
         public int ParentId { get; set; }
-        public int AuthorId { get; set; }
+        public int? AuthorId { get; set; }
         public User Author { get; set; }
         [Required]
         [StringLength(500)]

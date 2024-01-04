@@ -15,7 +15,7 @@ namespace Forum.API.BL.Handlers
         }
         public async Task<Response> Handle(LeaveCommentCommand request, CancellationToken cancellationToken)
         {
-            if(request.AuthorId != request.ParentAuthorId)
+            if (request.AuthorId != request.ParentAuthorId)
             {
                 var comment = new Comment { Text = request.Text, AuthorId = request.AuthorId };
                 if (request.PostId != 0)
@@ -29,7 +29,8 @@ namespace Forum.API.BL.Handlers
             }
             else
             {
-                return new Response { IsSuccess = false};
+                return new Response { IsSuccess = false };
+            }
         }
     }
 }

@@ -88,6 +88,14 @@ namespace Forum.API.Controllers
                 return Ok(result);
             }
         }
+        [Authorize]
+        [HttpPost("ViewPost/{postId}")]
+        public async Task<IActionResult> ViewPost([FromRoute] int postId, [FromBody] PaginationSettings settings)
+        {
+            var query = new ViewPostQuery { PostId = postId, PageIndex = settings.PageNumber, PageSize = settings.PageSize };
+            var result = await mediator.Send(query);
+            return Ok(result);
+        }
 
     }
 }

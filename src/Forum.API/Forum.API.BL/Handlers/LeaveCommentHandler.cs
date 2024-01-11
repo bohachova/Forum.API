@@ -17,12 +17,7 @@ namespace Forum.API.BL.Handlers
         {
             if (request.AuthorId != request.ParentAuthorId)
             {
-                var comment = new Comment { Text = request.Text, AuthorId = request.AuthorId };
-                if (request.PostId != 0)
-                    comment.PostId = request.PostId;
-                else
-                    comment.ParentId = request.ParentId;
-
+                var comment = new Comment { Text = request.Text, AuthorId = request.AuthorId, PostId = request.PostId, ParentId = request.ParentId };
                 await dbContext.Comments.AddAsync(comment);
                 await dbContext.SaveChangesAsync();
                 return new Response { IsSuccess = true };

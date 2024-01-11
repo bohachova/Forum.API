@@ -17,14 +17,19 @@ namespace Forum.API.BL.Handlers
 
         public async Task<Post> Handle(ViewPostQuery request, CancellationToken cancellationToken)
         {
-            var post = await dbContext.Posts.FirstOrDefaultAsync(x => x.Id == request.PostId);
-            var comments = await dbContext.Comments.Where(x => x.PostId == request.PostId).
-                                                    Include(x => x.ChildComments).
-                                                    Skip((request.PageIndex - 1) * request.PageSize).
-                                                    Take(request.PageSize).
-                                                    ToListAsync();
+            var post = await dbContext.Posts.Where(x=> x.Id == request.PostId).Include(x=>x.Author).FirstOrDefaultAsync();
+            var comments = await dbContext.Comments.Where(x => x.PostId == request.PostId)
+                                                   .Include(x => x.Author)
+                                                   .Include(x => x.Parent)
+                                                   .Skip((request.PageIndex - 1) * request.PageSize)
+                                                   .Take(request.PageSize)
+                                                   .ToListAsync();
+            foreach(var comment in comments )
+            {
+                comment.HasChildComments = await dbContext.Comments.Where(x => x.ParentId == comment.Id).AnyAsync();
+            }
             PaginatedList<Comment> paginatedComments = new PaginatedList<Comment> (comments, comments.Count, request.PageIndex, request.PageSize);
-            post.PaginatedComments = paginatedComments;
+            post.Comments = paginatedComments;
             return post;
         }
     }

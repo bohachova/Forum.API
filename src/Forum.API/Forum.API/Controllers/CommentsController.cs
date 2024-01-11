@@ -21,7 +21,7 @@ namespace Forum.API.Controllers
         {
             if (ModelState.IsValid)
             {
-                var command = new LeaveCommentCommand { AuthorId = comment.AuthorId ?? -1, ParentAuthorId = comment.ParentAuthorId, Text = comment.Text, ParentId = comment.ParentId, PostId = comment.PostId };
+                var command = new LeaveCommentCommand { AuthorId = comment.AuthorId ?? -1, ParentAuthorId = comment.ParentAuthorId, Text = comment.Text, ParentId = comment.ParentId ?? -1, PostId = comment.PostId ?? -1 };
                 var result = await mediator.Send(command);
                 return Ok(result);
             }

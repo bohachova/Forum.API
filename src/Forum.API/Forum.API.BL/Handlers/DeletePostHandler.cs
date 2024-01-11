@@ -24,7 +24,7 @@ namespace Forum.API.BL.Handlers
             }
             else
             {
-                if(post.AuthorId == request.UserId && !post.Comments.Any())
+                if(post.AuthorId == request.UserId && !post.UnpaginatedComments.Any())
                 {
                     dbContext.Posts.Remove(post);
                     await dbContext.SaveChangesAsync();

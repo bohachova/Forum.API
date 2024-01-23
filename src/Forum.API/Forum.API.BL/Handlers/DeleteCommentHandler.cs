@@ -19,7 +19,7 @@ namespace Forum.API.BL.Handlers
             var comment = await dbContext.Comments.FirstOrDefaultAsync(x => x.Id == request.CommentId);
             if (request.FullDeleteAllowed)
             {
-                dbContext.Comments.Remove(comment);
+                await CommentCascadeDelete(comment);
                 await dbContext.SaveChangesAsync();
                 return new Response { IsSuccess = true };
             }
@@ -36,6 +36,19 @@ namespace Forum.API.BL.Handlers
                     return new Response { IsSuccess = false };
                 }
             }
+        }
+        public async Task CommentCascadeDelete(Comment comment)
+        {
+            var childComments = await dbContext.Comments.Where(x => x.ParentId == comment.Id).ToListAsync();
+            if (childComments.Any())
+            {
+                foreach (var childComment in childComments)
+                {
+                    CommentCascadeDelete(childComment);
+                    dbContext.Comments.Remove(childComment);
+                }
+            }
+            dbContext.Comments.Remove(comment);
         }
     }
 }

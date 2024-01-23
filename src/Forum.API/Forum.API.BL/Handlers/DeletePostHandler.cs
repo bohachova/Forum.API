@@ -3,6 +3,7 @@ using Forum.API.BL.Commands;
 using Forum.API.DataObjects.Responses;
 using Forum.API.DAL;
 using Microsoft.EntityFrameworkCore;
+using Forum.API.DataObjects.TopicObjects;
 
 namespace Forum.API.BL.Handlers
 {
@@ -18,6 +19,14 @@ namespace Forum.API.BL.Handlers
             var post = await dbContext.Posts.FirstOrDefaultAsync(x => x.Id == request.PostId);
             if (request.FullDeleteAllowed)
             {
+                var comments = await dbContext.Comments.Where(x=>x.PostId == post.Id).ToListAsync(); 
+                if (comments.Any())
+                {
+                    foreach (var comment in comments)
+                    {
+                        dbContext.Comments.Remove(comment);
+                    }
+                }
                 dbContext.Posts.Remove(post);
                 await dbContext.SaveChangesAsync();
                 return new Response { IsSuccess = true };

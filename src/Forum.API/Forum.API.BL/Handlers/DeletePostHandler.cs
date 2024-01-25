@@ -33,7 +33,7 @@ namespace Forum.API.BL.Handlers
             }
             else
             {
-                if(post.AuthorId == request.UserId && !post.UnpaginatedComments.Any())
+                if(post.AuthorId == request.UserId && !post.Comments.Any())
                 {
                     dbContext.Posts.Remove(post);
                     await dbContext.SaveChangesAsync();

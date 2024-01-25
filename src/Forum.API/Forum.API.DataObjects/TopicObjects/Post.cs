@@ -1,8 +1,4 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Runtime.Serialization;
-using System.Text.Json.Serialization;
-using Forum.API.DataObjects.Pagination;
 using Forum.API.DataObjects.UserObjects;
 
 namespace Forum.API.DataObjects.TopicObjects
@@ -24,11 +20,6 @@ namespace Forum.API.DataObjects.TopicObjects
         [Required]
         public int TopicId { get; set; }
         public Topic Topic { get; set; }
-        [JsonIgnore]
-        [Column("Comments")]
-        public List<Comment> UnpaginatedComments { get; set; } = new List<Comment>();
-
-        [NotMapped]
-        public PaginatedList<Comment> Comments { get; set; } = new PaginatedList<Comment>(new List<Comment>(), 0, 0, 0);
+        public List<Comment> Comments { get; set; } = new List<Comment>();
     }
 }

@@ -1,20 +1,23 @@
 ﻿using MediatR;
 using Forum.API.BL.Queries;
 using Forum.API.DataObjects.Pagination;
-using Forum.API.DataObjects.TopicObjects;
+using Forum.API.DataObjects.TopicObjects.TopicResponses;
 using Forum.API.DAL;
 using Microsoft.EntityFrameworkCore;
+using AutoMapper;
 
 namespace Forum.API.BL.Handlers
 {
-    public class GetTopicPostsHandler : IRequestHandler<GetTopicPostsQuery, PaginatedList<Post>>
+    public class GetTopicPostsHandler : IRequestHandler<GetTopicPostsQuery, PaginatedList<PostResponse>>
     {
         private readonly ForumDbContext dbContext;
-        public GetTopicPostsHandler(ForumDbContext dbContext)
+        private readonly IMapper mapper;
+        public GetTopicPostsHandler(ForumDbContext dbContext, IMapper mapper)
         {
             this.dbContext = dbContext;
+            this.mapper = mapper;
         }
-        public async Task<PaginatedList<Post>> Handle(GetTopicPostsQuery request, CancellationToken cancellationToken)
+        public async Task<PaginatedList<PostResponse>> Handle(GetTopicPostsQuery request, CancellationToken cancellationToken)
         {
             var postsCount = await dbContext.Posts.CountAsync(x => x.TopicId == request.TopicId);
             var posts = await dbContext.Posts.AsNoTracking().Where(x=> x.TopicId == request.TopicId)
@@ -23,7 +26,8 @@ namespace Forum.API.BL.Handlers
                                                             .Include(x=>x.Attachments)
                                                             .Include(x=> x.Author)
                                                             .ToListAsync();
-            return new PaginatedList<Post>(posts, postsCount, request.PageIndex, request.PageSize);
+            var postsResp = mapper.Map<List<PostResponse>>(posts);
+            return new PaginatedList<PostResponse>(postsResp, postsCount, request.PageIndex, request.PageSize);
         }
     }
 }

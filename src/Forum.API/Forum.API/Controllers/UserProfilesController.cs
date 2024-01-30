@@ -30,9 +30,8 @@ namespace Forum.API.Controllers
         [HttpGet("UserProfile/{userId:int}")]
         public async Task<IActionResult> GetUserProfile([FromRoute] int userId)
         {
-            var query = new FindUserQuery { Id =  userId };
+            var query = new GetUserProfileQuery { Id =  userId };
             var user = await mediator.Send(query);
-            user.Password = "";
             return Ok(user);
         }
         [Authorize]

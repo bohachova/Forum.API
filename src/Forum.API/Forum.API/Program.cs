@@ -8,6 +8,8 @@ using Forum.API.BL.Services;
 using Forum.API.BL.Configuration;
 using Forum.API.BL.Configuration.Interfaces;
 using Microsoft.Extensions.Options;
+using System.Reflection;
+using Forum.API.BL.Profiles;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -36,6 +38,7 @@ builder.Services.AddScoped<IPasswordHasher, PasswordHasher>();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddAutoMapper(Assembly.GetAssembly(typeof(UserProfile)));
 
 var app = builder.Build();
 

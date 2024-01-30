@@ -3,13 +3,14 @@ using Forum.API.BL.Queries;
 using Forum.API.DataObjects.UserObjects;
 using Forum.API.DAL;
 using Microsoft.EntityFrameworkCore;
+using AutoMapper;
 
 namespace Forum.API.BL.Handlers
 {
     public class FindUserHandler : IRequestHandler<FindUserQuery, User?>
     {
         private readonly ForumDbContext dbContext;
-        public FindUserHandler(ForumDbContext dbContext)
+        public FindUserHandler(ForumDbContext dbContext, IMapper mapper)
         {
                this.dbContext = dbContext;
         }

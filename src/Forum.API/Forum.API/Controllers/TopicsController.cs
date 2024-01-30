@@ -70,5 +70,32 @@ namespace Forum.API.Controllers
                 return BadRequest(new Response { IsSuccess = false});
             }
         }
+        [Authorize]
+        [HttpPost("DeletePost")]
+        public async Task<IActionResult> DeletePost([FromBody] int postId)
+        {
+            var userId = int.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value);
+            if(User.IsInRole("Admin"))
+            {
+                var command = new DeletePostCommand { PostId = postId, FullDeleteAllowed = true};
+                var result = await mediator.Send(command);
+                return Ok(result);
+            }
+            else
+            {
+                var command = new DeletePostCommand { PostId = postId, FullDeleteAllowed = false, UserId = userId };
+                var result = await mediator.Send(command);
+                return Ok(result);
+            }
+        }
+        [Authorize]
+        [HttpPost("ViewPost/{postId}")]
+        public async Task<IActionResult> ViewPost([FromRoute] int postId, [FromBody] PaginationSettings settings)
+        {
+            var query = new ViewPostQuery { PostId = postId, PageIndex = settings.PageNumber, PageSize = settings.PageSize };
+            var result = await mediator.Send(query);
+            return Ok(result);
+        }
+
     }
 }

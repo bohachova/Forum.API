@@ -14,6 +14,8 @@ namespace Forum.API.DataObjects.TopicObjects
         public string Text { get; set; } = string.Empty;
         public List<Attachment> Attachments { get; set; } = new List<Attachment>();
         public DateTime PostPublishingTime { get; set; } = DateTime.Now;
+        public bool WasEdited { get; set; }
+        public DateTime? LastEdited { get; set; }
         [Required]
         public int AuthorId { get; set; }
         public User Author { get; set; }

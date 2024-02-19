@@ -10,6 +10,8 @@ namespace Forum.API.DataObjects.TopicObjects.TopicResponses
         public string Text { get; set; } = string.Empty;
         public List<AttachmentResponse> Attachments { get; set; } = new List<AttachmentResponse>();
         public DateTime PostPublishingTime { get; set; } = DateTime.Now;
+        public bool WasEdited { get; set; }
+        public DateTime? LastEdited { get; set; }
         public int AuthorId { get; set; }
         public UserResponse Author { get; set; }
         public int TopicId { get; set; }

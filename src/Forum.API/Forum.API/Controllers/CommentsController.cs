@@ -1,4 +1,5 @@
 ﻿using Forum.API.BL.Commands;
+using Forum.API.DataObjects.Responses;
 using Forum.API.DataObjects.TopicObjects;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -49,6 +50,27 @@ namespace Forum.API.Controllers
                 return Ok(result);
             }
     
-        }   
+        }
+        [Authorize]
+        [HttpPost("EditComment")]
+        public async Task<IActionResult> EditComment([FromBody] CommentEditModel comment)
+        {
+            var userId = int.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value);
+            if (ModelState.IsValid)
+            {
+                var command = new EditCommentCommand
+                {
+                    Id = comment.Id,
+                    AuthorId = userId,
+                    Text = comment.Text
+                };
+                var result = await mediator.Send(command);
+                return Ok(result);
+            }
+            else
+            {
+                return BadRequest(new Response { IsSuccess = false, Message = "Not valid data" });
+            }
+        }
     }
 }

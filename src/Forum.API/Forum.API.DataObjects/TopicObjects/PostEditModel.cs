@@ -5,7 +5,7 @@ namespace Forum.API.DataObjects.TopicObjects
 {
     public class PostEditModel
     {
-
+        [Required]
         public int Id { get; set; }
         [Required]
         [StringLength(150)]

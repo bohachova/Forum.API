@@ -14,5 +14,7 @@ namespace Forum.API.DataObjects.TopicObjects.TopicResponses
         public DateTime PublishingTime { get; set; } = DateTime.Now;
         public bool HasChildComments { get; set; }
         public int ParentAuthorId { get; set; }
+        public bool WasEdited { get; set; }
+        public DateTime? LastEdited { get; set; }
     }
 }

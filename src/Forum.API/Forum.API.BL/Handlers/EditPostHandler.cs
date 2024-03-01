@@ -5,7 +5,6 @@ using Forum.API.DAL;
 using Forum.API.DataObjects.Responses;
 using Forum.API.DataObjects.TopicObjects;
 using MediatR;
-using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 
 namespace Forum.API.BL.Handlers

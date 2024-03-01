@@ -17,5 +17,6 @@ namespace Forum.API.DataObjects.TopicObjects.TopicResponses
         public int TopicId { get; set; }
         public TopicResponse Topic { get; set; }
         public PaginatedList<CommentResponse> Comments { get; set; } = new PaginatedList<CommentResponse>(new List<CommentResponse>(), 0, 0, 0);
+        public List<Reaction> Reactions { get; set; } = new List<Reaction>();
     }
 }

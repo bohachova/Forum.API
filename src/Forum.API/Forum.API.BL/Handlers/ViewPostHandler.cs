@@ -20,9 +20,14 @@ namespace Forum.API.BL.Handlers
 
         public async Task<PostResponse> Handle(ViewPostQuery request, CancellationToken cancellationToken)
         {
-            var post = await dbContext.Posts.Where(x=> x.Id == request.PostId).Include(x=>x.Author).Include(x=>x.Attachments).FirstOrDefaultAsync();
+            var post = await dbContext.Posts.Where(x=> x.Id == request.PostId)
+                                            .Include(x=>x.Author)
+                                            .Include(x=>x.Attachments)
+                                            .Include(x => x.Reactions)
+                                            .FirstOrDefaultAsync();
             var comments = await dbContext.Comments.Where(x => x.PostId == request.PostId)
                                                    .Include(x => x.Author)
+                                                   .Include(x => x.Reactions)
                                                    .Include(x => x.Parent)
                                                    .Skip((request.PageIndex - 1) * request.PageSize)
                                                    .Take(request.PageSize)

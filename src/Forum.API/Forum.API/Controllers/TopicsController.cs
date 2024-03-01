@@ -3,6 +3,7 @@ using Forum.API.BL.Queries;
 using Forum.API.DataObjects.Pagination;
 using Forum.API.DataObjects.Responses;
 using Forum.API.DataObjects.TopicObjects;
+using Forum.API.DataObjects.TopicObjects.PostObjects;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -125,6 +126,21 @@ namespace Forum.API.Controllers
                 return Ok(result);
             }
             return BadRequest(new Response { IsSuccess = false, Message = "Not valid data" });
+        }
+        [Authorize]
+        [HttpPost("PostReaction")]
+        public async Task<IActionResult> LikeDislikePost([FromBody] LikeDislikeReactionRequest reaction)
+        {
+            var userId = int.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value);
+            var command = new LikeDislikePostCommand 
+            { 
+                UserId = userId, 
+                PostId = reaction.TargetId,
+                Like = reaction.Like, 
+                Dislike = reaction.Dislike  
+            };
+            var result = await mediator.Send(command);
+            return Ok(result);
         }
 
     }

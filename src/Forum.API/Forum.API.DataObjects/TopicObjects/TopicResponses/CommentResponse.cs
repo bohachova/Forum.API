@@ -16,5 +16,9 @@ namespace Forum.API.DataObjects.TopicObjects.TopicResponses
         public int ParentAuthorId { get; set; }
         public bool WasEdited { get; set; }
         public DateTime? LastEdited { get; set; }
+        public List<int> Likes { get; set; } = new List<int>();
+        public List<int> Dislikes { get; set; } = new List<int>();
+        public List<Reaction> Reactions { get; set; } = new List<Reaction>();
+
     }
 }

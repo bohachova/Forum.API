@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using Forum.API.DataObjects.UserObjects;
 
-namespace Forum.API.DataObjects.TopicObjects
+namespace Forum.API.DataObjects.TopicObjects.PostObjects
 {
     public class Post
     {
@@ -23,5 +23,6 @@ namespace Forum.API.DataObjects.TopicObjects
         public int TopicId { get; set; }
         public Topic Topic { get; set; }
         public List<Comment> Comments { get; set; } = new List<Comment>();
+        public List<Reaction> Reactions { get; set; } = new List<Reaction>();
     }
 }

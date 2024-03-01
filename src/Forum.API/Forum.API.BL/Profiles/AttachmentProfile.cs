@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using Forum.API.DataObjects.TopicObjects;
 using Forum.API.DataObjects.TopicObjects.TopicResponses;
+using Forum.API.DataObjects.TopicObjects;
 
 namespace Forum.API.BL.Profiles
 {

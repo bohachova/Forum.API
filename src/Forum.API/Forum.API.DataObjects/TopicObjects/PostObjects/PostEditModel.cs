@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using System.ComponentModel.DataAnnotations;
 
-namespace Forum.API.DataObjects.TopicObjects
+namespace Forum.API.DataObjects.TopicObjects.PostObjects
 {
     public class PostEditModel
     {

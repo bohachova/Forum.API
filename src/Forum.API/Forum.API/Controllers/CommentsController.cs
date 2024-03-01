@@ -72,5 +72,20 @@ namespace Forum.API.Controllers
                 return BadRequest(new Response { IsSuccess = false, Message = "Not valid data" });
             }
         }
+        [Authorize]
+        [HttpPost("CommentReaction")]
+        public async Task<IActionResult> LikeDislikeComment([FromBody] LikeDislikeReactionRequest reaction)
+        {
+            var userId = int.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value);
+            var command = new LikeDislikeCommentCommand
+            {
+                UserId = userId,
+                CommentId = reaction.TargetId,
+                Like = reaction.Like,
+                Dislike = reaction.Dislike
+            };
+            var result = await mediator.Send(command);
+            return Ok(result);
+        }
     }
 }

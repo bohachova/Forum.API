@@ -53,17 +53,14 @@ namespace Forum.API.BL.Handlers
                     }
                     if (request.NewAttachments.Any())
                     {
-                        while (post.Attachments.Count() < 5)
-                        {
                             foreach (var file in request.NewAttachments)
                             {
-                                if (data.Extensions.Any(x => x == Path.GetExtension(file.FileName) && file.Length < data.MaxSize))
+                                if (data.Extensions.Any(x => x == Path.GetExtension(file.FileName) && file.Length < data.MaxSize && post.Attachments.Count() <= 5))
                                 {
                                     var img = ImageConverter.ConvertImage(file);
                                     post.Attachments.Add(new Attachment { File = img });
                                 }
                             }
-                        }
                     }
                 }
                 await dbContext.SaveChangesAsync();

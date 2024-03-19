@@ -20,11 +20,11 @@ namespace Forum.API.BL.Handlers
         public async Task<PaginatedList<PostResponse>> Handle(GetTopicPostsQuery request, CancellationToken cancellationToken)
         {
             var postsCount = await dbContext.Posts.CountAsync(x => x.TopicId == request.TopicId);
-            var posts = await dbContext.Posts.AsNoTracking().Where(x=> x.TopicId == request.TopicId)
+            var posts = await dbContext.Posts.AsNoTracking().Where(x => x.TopicId == request.TopicId)
                                                             .Skip((request.PageIndex - 1) * request.PageSize)
                                                             .Take(request.PageSize)
-                                                            .Include(x=>x.Attachments)
-                                                            .Include(x=> x.Author)
+                                                            .Include(x => x.Attachments)
+                                                            .Include(x => x.Author)
                                                             .ToListAsync();
             var postsResp = mapper.Map<List<PostResponse>>(posts);
             return new PaginatedList<PostResponse>(postsResp, postsCount, request.PageIndex, request.PageSize);

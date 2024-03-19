@@ -1,4 +1,5 @@
-﻿using Forum.API.DataObjects.UserObjects;
+﻿using Forum.API.DataObjects.TopicObjects.PostObjects;
+using Forum.API.DataObjects.UserObjects;
 using System.ComponentModel.DataAnnotations;
 
 namespace Forum.API.DataObjects.TopicObjects
@@ -18,5 +19,8 @@ namespace Forum.API.DataObjects.TopicObjects
         public DateTime PublishingTime { get; set; } = DateTime.Now;
         public List<Comment> ChildComments { get; set; } = new List<Comment>();
         public int ParentAuthorId { get; set; }
+        public bool WasEdited { get; set; }
+        public DateTime? LastEdited { get; set; }
+        public List<Reaction> Reactions { get; set; } = new List<Reaction>();
     }
 }

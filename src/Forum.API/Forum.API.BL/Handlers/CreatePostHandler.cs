@@ -2,9 +2,10 @@
 using Forum.API.BL.Commands;
 using Forum.API.DataObjects.Responses;
 using Forum.API.DAL;
-using Forum.API.DataObjects.TopicObjects;
 using Forum.API.BL.Configuration.Interfaces;
 using Forum.API.BL.Services;
+using Forum.API.DataObjects.TopicObjects;
+using Forum.API.DataObjects.TopicObjects.PostObjects;
 
 namespace Forum.API.BL.Handlers
 {

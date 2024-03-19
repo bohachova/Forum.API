@@ -1,4 +1,5 @@
-﻿using Forum.API.DataObjects.UserObjects;
+﻿using Forum.API.DataObjects.TopicObjects.PostObjects;
+using Forum.API.DataObjects.UserObjects;
 using System.ComponentModel.DataAnnotations;
 
 namespace Forum.API.DataObjects.TopicObjects

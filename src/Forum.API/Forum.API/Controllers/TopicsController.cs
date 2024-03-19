@@ -3,6 +3,7 @@ using Forum.API.BL.Queries;
 using Forum.API.DataObjects.Pagination;
 using Forum.API.DataObjects.Responses;
 using Forum.API.DataObjects.TopicObjects;
+using Forum.API.DataObjects.TopicObjects.PostObjects;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -67,7 +68,7 @@ namespace Forum.API.Controllers
             }
             else
             {
-                return BadRequest(new Response { IsSuccess = false});
+                return BadRequest(new Response { IsSuccess = false, Message = "Not valid data"});
             }
         }
         [Authorize]
@@ -94,6 +95,51 @@ namespace Forum.API.Controllers
         {
             var query = new ViewPostQuery { PostId = postId, PageIndex = settings.PageNumber, PageSize = settings.PageSize };
             var result = await mediator.Send(query);
+            return Ok(result);
+        }
+        [Authorize]
+        [HttpPost("EditPost")]
+        public async Task<IActionResult> EditPost([FromForm]PostEditModel model)
+        {
+            var userId = int.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value);
+            if (ModelState.IsValid)
+            {
+                string[] deletedAttArray = model.DeletedAttachmentsString.Split(",");
+                var deletedAttList = new List<int>();
+                if (!deletedAttArray.Contains("0"))
+                {
+                    foreach (var item in deletedAttArray)
+                    {
+                        deletedAttList.Add(int.Parse(item));
+                    }
+                }
+                var command = new EditPostCommand
+                {
+                    Id = model.Id,
+                    Header = model.Header,
+                    Text = model.Text,
+                    NewAttachments = model.NewAttachments,
+                    DeletedAttachments = deletedAttList,
+                    UserId = userId
+                };
+                var result = await mediator.Send(command);
+                return Ok(result);
+            }
+            return BadRequest(new Response { IsSuccess = false, Message = "Not valid data" });
+        }
+        [Authorize]
+        [HttpPost("PostReaction")]
+        public async Task<IActionResult> LikeDislikePost([FromBody] LikeDislikeReactionRequest reaction)
+        {
+            var userId = int.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value);
+            var command = new LikeDislikePostCommand 
+            { 
+                UserId = userId, 
+                PostId = reaction.TargetId,
+                Like = reaction.Like, 
+                Dislike = reaction.Dislike  
+            };
+            var result = await mediator.Send(command);
             return Ok(result);
         }
 

@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using Forum.API.DataObjects.Enums;
 using Forum.API.DataObjects.TopicObjects;
+using Forum.API.DataObjects.TopicObjects.PostObjects;
 
 namespace Forum.API.DataObjects.UserObjects
 {
@@ -28,5 +29,6 @@ namespace Forum.API.DataObjects.UserObjects
         public List<Post> Posts { get; set; } = new List<Post>();
         public List<Comment> Comments { get; set; } = new List<Comment>();
         public bool DeletedUser { get; set; } = false;  
+        public List<Reaction> Reactions { get; set; } = new List<Reaction>();
     }
 }

@@ -2,8 +2,8 @@
 using Forum.API.BL.Commands;
 using Forum.API.DataObjects.Responses;
 using Forum.API.DAL;
-using Forum.API.DataObjects.TopicObjects;
 using Microsoft.EntityFrameworkCore;
+using Forum.API.DataObjects.TopicObjects;
 
 namespace Forum.API.BL.Handlers
 {

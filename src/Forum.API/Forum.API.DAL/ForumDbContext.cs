@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Forum.API.DataObjects.UserObjects;
 using Forum.API.DataObjects.TopicObjects;
+using Forum.API.DataObjects.TopicObjects.PostObjects;
 
 namespace Forum.API.DAL
 {

@@ -4,6 +4,7 @@ using Forum.API.DAL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Forum.API.DAL.Migrations
 {
     [DbContext(typeof(ForumDbContext))]
-    partial class ForumDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240220133531_EditComment")]
+    partial class EditComment
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -89,7 +92,7 @@ namespace Forum.API.DAL.Migrations
                     b.ToTable("Comments");
                 });
 
-            modelBuilder.Entity("Forum.API.DataObjects.TopicObjects.PostObjects.Post", b =>
+            modelBuilder.Entity("Forum.API.DataObjects.TopicObjects.Post", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -129,46 +132,6 @@ namespace Forum.API.DAL.Migrations
                     b.HasIndex("TopicId");
 
                     b.ToTable("Posts");
-                });
-
-            modelBuilder.Entity("Forum.API.DataObjects.TopicObjects.Reaction", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("AuthorId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("CommentId")
-                        .HasColumnType("int");
-
-                    b.Property<bool>("Dislike")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("Like")
-                        .HasColumnType("bit");
-
-                    b.Property<int?>("PostId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TargetId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("UserId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CommentId");
-
-                    b.HasIndex("PostId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("Reaction");
                 });
 
             modelBuilder.Entity("Forum.API.DataObjects.TopicObjects.Topic", b =>
@@ -252,7 +215,7 @@ namespace Forum.API.DAL.Migrations
 
             modelBuilder.Entity("Forum.API.DataObjects.TopicObjects.Attachment", b =>
                 {
-                    b.HasOne("Forum.API.DataObjects.TopicObjects.PostObjects.Post", null)
+                    b.HasOne("Forum.API.DataObjects.TopicObjects.Post", null)
                         .WithMany("Attachments")
                         .HasForeignKey("PostId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -269,7 +232,7 @@ namespace Forum.API.DAL.Migrations
                         .WithMany("ChildComments")
                         .HasForeignKey("ParentId");
 
-                    b.HasOne("Forum.API.DataObjects.TopicObjects.PostObjects.Post", "Post")
+                    b.HasOne("Forum.API.DataObjects.TopicObjects.Post", "Post")
                         .WithMany("Comments")
                         .HasForeignKey("PostId");
 
@@ -280,7 +243,7 @@ namespace Forum.API.DAL.Migrations
                     b.Navigation("Post");
                 });
 
-            modelBuilder.Entity("Forum.API.DataObjects.TopicObjects.PostObjects.Post", b =>
+            modelBuilder.Entity("Forum.API.DataObjects.TopicObjects.Post", b =>
                 {
                     b.HasOne("Forum.API.DataObjects.UserObjects.User", "Author")
                         .WithMany("Posts")
@@ -299,21 +262,6 @@ namespace Forum.API.DAL.Migrations
                     b.Navigation("Topic");
                 });
 
-            modelBuilder.Entity("Forum.API.DataObjects.TopicObjects.Reaction", b =>
-                {
-                    b.HasOne("Forum.API.DataObjects.TopicObjects.Comment", null)
-                        .WithMany("Reactions")
-                        .HasForeignKey("CommentId");
-
-                    b.HasOne("Forum.API.DataObjects.TopicObjects.PostObjects.Post", null)
-                        .WithMany("Reactions")
-                        .HasForeignKey("PostId");
-
-                    b.HasOne("Forum.API.DataObjects.UserObjects.User", null)
-                        .WithMany("Reactions")
-                        .HasForeignKey("UserId");
-                });
-
             modelBuilder.Entity("Forum.API.DataObjects.TopicObjects.Topic", b =>
                 {
                     b.HasOne("Forum.API.DataObjects.UserObjects.User", "Author")
@@ -326,17 +274,13 @@ namespace Forum.API.DAL.Migrations
             modelBuilder.Entity("Forum.API.DataObjects.TopicObjects.Comment", b =>
                 {
                     b.Navigation("ChildComments");
-
-                    b.Navigation("Reactions");
                 });
 
-            modelBuilder.Entity("Forum.API.DataObjects.TopicObjects.PostObjects.Post", b =>
+            modelBuilder.Entity("Forum.API.DataObjects.TopicObjects.Post", b =>
                 {
                     b.Navigation("Attachments");
 
                     b.Navigation("Comments");
-
-                    b.Navigation("Reactions");
                 });
 
             modelBuilder.Entity("Forum.API.DataObjects.TopicObjects.Topic", b =>
@@ -351,8 +295,6 @@ namespace Forum.API.DAL.Migrations
                     b.Navigation("CreatedTopics");
 
                     b.Navigation("Posts");
-
-                    b.Navigation("Reactions");
                 });
 #pragma warning restore 612, 618
         }

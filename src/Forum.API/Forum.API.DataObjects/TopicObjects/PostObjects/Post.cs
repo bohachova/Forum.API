@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using Forum.API.DataObjects.UserObjects;
 
-namespace Forum.API.DataObjects.TopicObjects
+namespace Forum.API.DataObjects.TopicObjects.PostObjects
 {
     public class Post
     {
@@ -14,6 +14,8 @@ namespace Forum.API.DataObjects.TopicObjects
         public string Text { get; set; } = string.Empty;
         public List<Attachment> Attachments { get; set; } = new List<Attachment>();
         public DateTime PostPublishingTime { get; set; } = DateTime.Now;
+        public bool WasEdited { get; set; }
+        public DateTime? LastEdited { get; set; }
         [Required]
         public int AuthorId { get; set; }
         public User Author { get; set; }
@@ -21,5 +23,6 @@ namespace Forum.API.DataObjects.TopicObjects
         public int TopicId { get; set; }
         public Topic Topic { get; set; }
         public List<Comment> Comments { get; set; } = new List<Comment>();
+        public List<Reaction> Reactions { get; set; } = new List<Reaction>();
     }
 }

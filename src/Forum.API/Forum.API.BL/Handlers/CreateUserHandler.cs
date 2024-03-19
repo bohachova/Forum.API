@@ -25,7 +25,7 @@ namespace Forum.API.BL.Handlers
         {
             var query = new FindUserQuery { Email = request.Email , Username = request.Username};
             var user = await mediator.Send(query);
-            if (user != null) 
+            if (user != null && !user.DeletedUser) 
             {
                 var result = new AuthResponse { IsSuccess = false, Message = "Email or username is already in use"};
                 return result;

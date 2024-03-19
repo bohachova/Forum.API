@@ -5,6 +5,9 @@ using Forum.API.BL.Queries;
 using Forum.API.BL.Commands;
 using Microsoft.AspNetCore.Authorization;
 using Forum.API.DataObjects.Pagination;
+using Microsoft.AspNetCore.Authorization.Infrastructure;
+using System.Security.Claims;
+using Forum.API.DataObjects.Enums;
 
 namespace Forum.API.Controllers
 {
@@ -72,6 +75,16 @@ namespace Forum.API.Controllers
         public async Task<IActionResult> DeleteUserPhoto([FromRoute] int userId)
         {
             var command = new DeleteUserPhotoCommand { UserId = userId};
+            var result = await mediator.Send(command);
+            return Ok(result);
+        }
+        [Authorize]
+        [HttpGet("DeletesUser/{deletedUserId}")]
+        public async Task<IActionResult> DeleteUser([FromRoute] int deletedUserId)
+        {
+            var userId = int.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value);
+            var userRole = (UserRole)int.Parse(User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Role).Value);
+            var command = new DeleteUserCommand { UserId = userId, UserRole = userRole , DeletedUserId = deletedUserId};
             var result = await mediator.Send(command);
             return Ok(result);
         }

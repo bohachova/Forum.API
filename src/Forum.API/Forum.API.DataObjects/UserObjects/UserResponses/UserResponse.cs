@@ -17,5 +17,6 @@ namespace Forum.API.DataObjects.UserObjects.UserResponses
         public string? City { get; set; }
         public DateTime? DateOfBirth { get; set; }
         public string? About { get; set; }
+        public bool DeletedUser { get; set; } = false;
     }
 }

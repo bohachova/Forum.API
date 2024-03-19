@@ -22,7 +22,7 @@ namespace Forum.API.BL.Handlers
         {
             var query = new FindUserQuery { Email = request.Email};
             var user = await mediator.Send(query);
-            if (user != null && passwordHasher.VerifyPassword(request.Password, user.Password))
+            if (user != null && !user.DeletedUser && passwordHasher.VerifyPassword(request.Password, user.Password))
             {
                 var token = JWTSecurityTokenGenerator.GetToken(user.Id, user.Username, user.UserRole);
                 return new AuthResponse { IsSuccess = true, Message = "Authorized", JWTToken = token};

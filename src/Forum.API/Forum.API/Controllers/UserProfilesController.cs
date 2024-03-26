@@ -79,12 +79,12 @@ namespace Forum.API.Controllers
             return Ok(result);
         }
         [Authorize]
-        [HttpGet("DeletesUser/{deletedUserId}")]
+        [HttpGet("DeleteUser/{deletedUserId}")]
         public async Task<IActionResult> DeleteUser([FromRoute] int deletedUserId)
         {
             var userId = int.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value);
-            var userRole = (UserRole)int.Parse(User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Role).Value);
-            var command = new DeleteUserCommand { UserId = userId, UserRole = userRole , DeletedUserId = deletedUserId};
+            var userRole = Enum.Parse<UserRole>(User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Role).Value);
+            var command = new DeleteUserCommand { UserId = userId, UserRole = userRole, DeletedUserId = deletedUserId };
             var result = await mediator.Send(command);
             return Ok(result);
         }

@@ -30,5 +30,8 @@ namespace Forum.API.DataObjects.UserObjects
         public List<Comment> Comments { get; set; } = new List<Comment>();
         public bool DeletedUser { get; set; } = false;  
         public List<Reaction> Reactions { get; set; } = new List<Reaction>();
+        public bool BannedUser { get; set; } = false;
+        public BanType BanType { get; set; } = BanType.NotBanned;
+        public DateTime? BanTime { get; set; }
     }
 }

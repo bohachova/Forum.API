@@ -1,6 +1,4 @@
-﻿
-
-namespace Forum.API.DataObjects.Responses
+﻿namespace Forum.API.DataObjects.Responses
 {
     public class AuthResponse : Response
     {

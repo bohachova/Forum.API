@@ -8,6 +8,8 @@ using Forum.API.DataObjects.Pagination;
 using Microsoft.AspNetCore.Authorization.Infrastructure;
 using System.Security.Claims;
 using Forum.API.DataObjects.Enums;
+using Forum.API.DataObjects.Restrictions;
+using System.Data;
 
 namespace Forum.API.Controllers
 {
@@ -85,6 +87,30 @@ namespace Forum.API.Controllers
             var userId = int.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value);
             var userRole = Enum.Parse<UserRole>(User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Role).Value);
             var command = new DeleteUserCommand { UserId = userId, UserRole = userRole, DeletedUserId = deletedUserId };
+            var result = await mediator.Send(command);
+            return Ok(result);
+        }
+        [Authorize(Roles = "Admin")]
+        [HttpPost("BannedUsers")]
+        public async Task<IActionResult> GetBannedUsersList ([FromBody] PaginationSettings settings)
+        {
+            var query = new GetBannedUsersListQuery { PageIndex = settings.PageNumber, PageSize = settings.PageSize };
+            var result = await mediator.Send(query);
+            return Ok(result);
+        }
+        [Authorize(Roles = "Admin")]
+        [HttpPost("Ban")]
+        public async Task<IActionResult> BanUser([FromBody] BanData data)
+        {
+            var command = new BanUserCommand { UserId = data.UserId, BanType = data.BanType, BanTime = data.BanTime};
+            var result = await mediator.Send(command);
+            return Ok(result);
+        }
+        [Authorize(Roles = "Admin")]
+        [HttpPost("Unban")]
+        public async Task<IActionResult> UnbanUser([FromBody] int userId)
+        {
+            var command = new UnbanUserCommand { UserId = userId};
             var result = await mediator.Send(command);
             return Ok(result);
         }

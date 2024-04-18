@@ -22,5 +22,20 @@ namespace Forum.API.BL.Security
                     signingCredentials: new SigningCredentials(JWTAuthOptions.GetSymmetricSecurityKey(), SecurityAlgorithms.HmacSha256));
             return new JwtSecurityTokenHandler().WriteToken(jwt);
         }
+        public static string GetToken(int id, string username, UserRole userRole, bool mutedUser)
+        {
+            var claims = new List<Claim> {
+                new Claim(ClaimTypes.Name, username),
+                new Claim(ClaimTypes.Role, userRole.ToString()),
+                new Claim("UserId",id.ToString()),
+                new Claim("MutedUser", mutedUser.ToString())
+            };
+            var jwt = new JwtSecurityToken(
+            issuer: JWTAuthOptions.ISSUER,
+                    claims: claims,
+                    expires: DateTime.UtcNow.Add(TimeSpan.FromMinutes(60)),
+                    signingCredentials: new SigningCredentials(JWTAuthOptions.GetSymmetricSecurityKey(), SecurityAlgorithms.HmacSha256));
+            return new JwtSecurityTokenHandler().WriteToken(jwt);
+        }
     }
 }

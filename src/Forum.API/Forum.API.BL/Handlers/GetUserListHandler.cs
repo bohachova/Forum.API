@@ -2,7 +2,6 @@
 using Forum.API.BL.Queries;
 using Forum.API.DataObjects.UserObjects.UserResponses;
 using Forum.API.DAL;
-using Forum.API.DataObjects.Enums;
 using Microsoft.EntityFrameworkCore;
 using Forum.API.DataObjects.Pagination;
 using AutoMapper;

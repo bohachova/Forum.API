@@ -17,5 +17,9 @@ namespace Forum.API.DataObjects.UserObjects.UserResponses
         public string? City { get; set; }
         public DateTime? DateOfBirth { get; set; }
         public string? About { get; set; }
+        public bool DeletedUser { get; set; } = false;
+        public bool BannedUser { get; set; } = false;
+        public BanType BanType { get; set; } = BanType.NotBanned;
+        public DateTime? BanTime { get; set; }
     }
 }

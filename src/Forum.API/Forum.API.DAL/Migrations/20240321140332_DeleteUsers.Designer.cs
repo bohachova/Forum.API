@@ -4,6 +4,7 @@ using Forum.API.DAL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Forum.API.DAL.Migrations
 {
     [DbContext(typeof(ForumDbContext))]
-    partial class ForumDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240321140332_DeleteUsers")]
+    partial class DeleteUsers
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -204,15 +207,6 @@ namespace Forum.API.DAL.Migrations
 
                     b.Property<string>("About")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("BanTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("BanType")
-                        .HasColumnType("int");
-
-                    b.Property<bool>("BannedUser")
-                        .HasColumnType("bit");
 
                     b.Property<string>("City")
                         .HasColumnType("nvarchar(max)");

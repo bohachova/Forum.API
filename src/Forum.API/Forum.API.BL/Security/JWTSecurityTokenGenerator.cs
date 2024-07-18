@@ -33,7 +33,7 @@ namespace Forum.API.BL.Security
             var jwt = new JwtSecurityToken(
             issuer: JWTAuthOptions.ISSUER,
                     claims: claims,
-                    expires: DateTime.UtcNow.Add(TimeSpan.FromMinutes(60)),
+                    expires: DateTime.UtcNow.Add(TimeSpan.FromDays(1)),
                     signingCredentials: new SigningCredentials(JWTAuthOptions.GetSymmetricSecurityKey(), SecurityAlgorithms.HmacSha256));
             return new JwtSecurityTokenHandler().WriteToken(jwt);
         }

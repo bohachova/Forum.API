@@ -1,5 +1,4 @@
-﻿using Forum.API.DataObjects.Enums;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace Forum.API.DataObjects.UserObjects
 {
